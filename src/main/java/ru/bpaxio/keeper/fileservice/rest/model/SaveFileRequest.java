@@ -1,14 +1,16 @@
-package ru.bpaxio.keeper.fileservice.rest;
+package ru.bpaxio.keeper.fileservice.rest.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SaveFileRequest {
-    private String originName;
-    private MultipartFile file;
+    @NonNull
+    private String noteId;
+    @NonNull
+    private String fileId;
 }
