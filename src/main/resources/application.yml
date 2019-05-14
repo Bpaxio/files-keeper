@@ -1,0 +1,5 @@
+server:
+  port: 8088
+file:
+  store:
+    root-dir: /Users/Bpaxio/Documents/workspace/otus/Things Keeper/file-service/src/main/resources/
