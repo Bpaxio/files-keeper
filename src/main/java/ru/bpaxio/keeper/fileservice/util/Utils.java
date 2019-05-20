@@ -1,7 +1,5 @@
 package ru.bpaxio.keeper.fileservice.util;
 
-import ru.bpaxio.keeper.fileservice.util.exception.WrongPathException;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
