@@ -31,7 +31,7 @@ import static ru.bpaxio.keeper.fileservice.util.Utils.putFileTo;
 
 @Slf4j
 @RestController
-@RequestMapping("files")
+@RequestMapping
 @AllArgsConstructor
 @Api(value="FilesController", description = "Files REST API")
 public class FileController {
