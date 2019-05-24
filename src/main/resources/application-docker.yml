@@ -2,4 +2,4 @@ server:
   port: 8080
 file:
   store:
-    root-dir: /var/files/store
+    root-path: /var/files/store

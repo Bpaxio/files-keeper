@@ -21,8 +21,12 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class FileServiceImpl implements FileService {
-    @Value("${file.store.root-dir}")
-    private String ROOT_DIR;
+    private final Path ROOT_DIR;
+
+    public FileServiceImpl(@Value("${file.store.root-path}")String rootPath) {
+        ROOT_DIR = Paths.get(System.getProperty("user.dir"), rootPath);
+        log.info("root dir: {}", ROOT_DIR);
+    }
 
     @Override
     public UpdateFileResponse save(SaveFileRequest request, MultipartFile file) {
@@ -46,7 +50,7 @@ public class FileServiceImpl implements FileService {
     public File getFile(@NonNull String path) {
         return Optional
                 .ofNullable(
-                        Paths.get(ROOT_DIR + path)
+                        Paths.get(ROOT_DIR.toString(), path)
                                 .toFile()
                 ).filter(File::exists)
                 .orElseThrow(() -> new RuntimeException("not found"));
@@ -54,7 +58,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void delete(@NonNull String relativePath) {
-        Path path = Paths.get(ROOT_DIR + relativePath);
+        Path path = Paths.get(ROOT_DIR.toString(), relativePath);
         try {
             Files.deleteIfExists(path);
         } catch (IOException e) {
@@ -84,11 +88,11 @@ public class FileServiceImpl implements FileService {
     }
 
     private File prepareFile(final String noteId, final String fileId) {
-        Path path = Paths.get(ROOT_DIR, LocalDate.now().toString(), noteId);
+        Path path = Paths.get(ROOT_DIR.toString(), LocalDate.now().toString(), noteId);
         try {
             Files.createDirectories(path);
             File localFile = Paths
-                    .get(ROOT_DIR, LocalDate.now().toString(), noteId, fileId)
+                    .get(ROOT_DIR.toString(), LocalDate.now().toString(), noteId, fileId)
                     .toFile();
             return Files.createFile(localFile.toPath()).toFile();
         } catch (IOException e) {
